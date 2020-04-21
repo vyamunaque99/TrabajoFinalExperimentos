@@ -1,0 +1,2 @@
+INSERT INTO USUARIOS (id,failed_attemps,last_time_locked,locked,password,username) VALUES (1,0,null,false,'$2a$10$FQvIKRvMi2kH0Uugdo3c6e4btzdrj1.F9Gy/U.ksPwSI5dLsczRD6','admin');
+INSERT INTO ROLES(id,authority,user_id) VALUES (1,'ROLE_USER',1);
