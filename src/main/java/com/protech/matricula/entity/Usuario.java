@@ -14,9 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name="usuarios")
@@ -26,6 +29,7 @@ public class Usuario implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +56,11 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="user_id")
 	private List<Rol> roles;
 
+	@PrePersist
+	public void prePersist() {
+		this.password=new BCryptPasswordEncoder().encode(password);
+	}
+	
 	public Long getId() {
 		return id;
 	}

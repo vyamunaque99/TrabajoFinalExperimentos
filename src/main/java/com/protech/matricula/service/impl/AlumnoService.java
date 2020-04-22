@@ -7,30 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.protech.matricula.entity.Alumno;
+import com.protech.matricula.repository.IAlumnoRepository;
 import com.protech.matricula.service.IAlumnoService;
 
 @Service
 public class AlumnoService implements IAlumnoService {
 
 	@Autowired
-	private IAlumnoService alumnoService;
+	private IAlumnoRepository alumnoRepository;
 	
 	@Override
 	public Alumno saveOrUpdate(Alumno entity) {
 		// TODO Auto-generated method stub
-		return alumnoService.saveOrUpdate(entity);
+		return alumnoRepository.save(entity);
 	}
 
 	@Override
 	public List<Alumno> findAll() {
 		// TODO Auto-generated method stub
-		return alumnoService.findAll();
+		return alumnoRepository.findAll();
 	}
 
 	@Override
 	public Optional<Alumno> findById(Long id) {
 		// TODO Auto-generated method stub
-		return alumnoService.findById(id);
+		return alumnoRepository.findById(id);
 	}
 
 }

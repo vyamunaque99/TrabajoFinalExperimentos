@@ -16,10 +16,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "alumnos")
 public class Alumno implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -28,7 +30,7 @@ public class Alumno implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String nombres;
 
 	private String apellidos;
@@ -36,6 +38,7 @@ public class Alumno implements Serializable {
 	@Column(length = 8)
 	private String DNI;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 
@@ -43,9 +46,9 @@ public class Alumno implements Serializable {
 
 	@Column(length = 9)
 	private String telefono;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="usuario_id",referencedColumnName = "id")
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
 
 	public Long getId() {
