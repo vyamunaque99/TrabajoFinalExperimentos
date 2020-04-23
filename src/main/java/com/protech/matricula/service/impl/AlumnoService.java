@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.protech.matricula.entity.Alumno;
 import com.protech.matricula.repository.IAlumnoRepository;
@@ -16,6 +17,7 @@ public class AlumnoService implements IAlumnoService {
 	@Autowired
 	private IAlumnoRepository alumnoRepository;
 	
+	@Transactional
 	@Override
 	public Alumno saveOrUpdate(Alumno entity) {
 		// TODO Auto-generated method stub
@@ -32,6 +34,10 @@ public class AlumnoService implements IAlumnoService {
 	public Optional<Alumno> findById(Long id) {
 		// TODO Auto-generated method stub
 		return alumnoRepository.findById(id);
+	}
+	
+	public void deleteById(Long id) {
+		alumnoRepository.deleteById(id);;
 	}
 
 }

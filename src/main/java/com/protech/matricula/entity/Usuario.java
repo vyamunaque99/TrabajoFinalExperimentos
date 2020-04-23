@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -61,6 +62,11 @@ public class Usuario implements Serializable {
 		this.password=new BCryptPasswordEncoder().encode(password);
 	}
 	
+	@PreUpdate
+	public void preUpdate()
+	{
+		this.password=new BCryptPasswordEncoder().encode(password);
+	}
 	public Long getId() {
 		return id;
 	}

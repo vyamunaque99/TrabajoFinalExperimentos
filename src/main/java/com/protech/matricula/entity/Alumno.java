@@ -35,13 +35,14 @@ public class Alumno implements Serializable {
 
 	private String apellidos;
 
-	@Column(length = 8)
+	@Column(length = 8,unique = true)
 	private String DNI;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 
+	@Column(length = 100)
 	private String direccion;
 
 	@Column(length = 9)

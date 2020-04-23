@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.protech.matricula.entity.Usuario;
 import com.protech.matricula.repository.IUsuarioRepository;
@@ -16,6 +17,7 @@ public class UsuarioService implements IUsuarioService{
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
 	
+	@Transactional
 	@Override
 	public Usuario saveOrUpdate(Usuario entity) {
 		// TODO Auto-generated method stub
@@ -36,6 +38,10 @@ public class UsuarioService implements IUsuarioService{
 	
 	public Usuario findByUsername(String username) {
 		return usuarioRepository.findByUsername(username);
+	}
+	
+	public void deleteById(Long id) {
+		usuarioRepository.deleteById(id);;
 	}
 
 }
