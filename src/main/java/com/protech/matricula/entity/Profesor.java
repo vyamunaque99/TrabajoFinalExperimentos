@@ -2,14 +2,17 @@ package com.protech.matricula.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,14 +23,14 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "alumnos")
-public class Alumno implements Serializable {
+@Table(name="profesores")
+public class Profesor implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -39,7 +42,7 @@ public class Alumno implements Serializable {
 	@NotEmpty(message="Debe ingresar apellidos")
 	@Column(name="apellidos", nullable=false, length=30)
 	private String apellidos;
-
+	
 	@NotEmpty(message ="Debe ingresar DNI")
 	@Column(length = 8,unique = true)
 	private String DNI;
@@ -47,7 +50,7 @@ public class Alumno implements Serializable {
 	@NotNull(message = "Debe ingresar una Fecha")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
-	private Date fechaNacimiento;
+	private Date fechaIngreso;
 
 	@NotEmpty(message="Debe ingresar Direccion")
 	@Column(name="direccion", nullable=false,length = 100)
@@ -56,13 +59,13 @@ public class Alumno implements Serializable {
 	@NotEmpty(message="Debe ingresar Telefono")
 	@Column(name="telefono",nullable=false,length = 9)
 	private String telefono;
-
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
 	
-	@OneToOne(mappedBy = "alumno")
-	private Matricula matricula;
+	@OneToMany(mappedBy ="profesor" ,fetch = FetchType.LAZY)
+	private List<Curso>cursos;
 
 	public Long getId() {
 		return id;
@@ -96,12 +99,12 @@ public class Alumno implements Serializable {
 		DNI = dNI;
 	}
 
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
+	public Date getFechaIngreso() {
+		return fechaIngreso;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
 	}
 
 	public String getDireccion() {
@@ -126,6 +129,14 @@ public class Alumno implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 
 }

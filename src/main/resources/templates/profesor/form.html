@@ -230,7 +230,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Alumno</h1>
+						<h1 class="h3 mb-0 text-gray-800">Profesor</h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
@@ -267,7 +267,7 @@
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
-									<form th:action="@{/alumno/save}" th:object="${alumno}"
+									<form th:action="@{/profesor/save}" th:object="${profesor}"
 										method="post">
 										<div class="form-group row">
 											<label for="username" class="col-sm-6 col-form-label">Codigo</label>
@@ -340,11 +340,11 @@
 										-->
 
 										<div class="form-group row">
-											<label for="fechaNacimiento" class="col-sm-6 col-form-label">Fecha
-												de nacimiento</label>
+											<label for="fechaIngreso" class="col-sm-6 col-form-label">Fecha
+												de ingreso</label>
 											<div class="col-sm-12">
 												<div class="input-group text" id="datetimepicker1">
-													<input type="date" th:field="*{fechaNacimiento}"
+													<input type="date" th:field="*{fechaIngreso}"
 														class="form-control"
 														th:errorclass="'form-control alert-danger'" /> <span
 														class="input-group-addon"> <span
@@ -352,8 +352,8 @@
 													</span>
 												</div>
 												<small class="form-text text-danger"
-													th:if="${#fields.hasErrors('fechaNacimiento')}"
-													th:errors="*{fechaNacimiento}"></small>
+													th:if="${#fields.hasErrors('fechaIngreso')}"
+													th:errors="*{fechaIngreso}"></small>
 											</div>
 											<script type="text/javascript">
 												$(function() {

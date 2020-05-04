@@ -19,6 +19,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -36,9 +37,11 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty(message = "Debe ingresar usuario")
 	@Column(unique = true,length = 9)
 	private String username;
 	
+	@NotEmpty(message = "Debe ingresar contraseña")
 	private String password;
 	
 	//private boolean enabled;
@@ -51,7 +54,12 @@ public class Usuario implements Serializable {
 	private Date lastTimeLocked;
 	
 	@OneToOne(mappedBy = "usuario")
+	private Profesor profesor;
+	
+	@OneToOne(mappedBy = "usuario")
 	private Alumno alumno;
+	
+	
 	
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinColumn(name="user_id")

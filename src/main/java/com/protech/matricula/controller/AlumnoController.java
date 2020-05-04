@@ -32,8 +32,7 @@ import com.protech.matricula.service.impl.AlumnoService;
 @RequestMapping("/alumno")
 @SessionAttributes("alumno")
 public class AlumnoController {
-	
-	
+		
 	@Autowired
 	private AlumnoService alumnoService;
 	
@@ -59,10 +58,10 @@ public class AlumnoController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String saveAlumno(@Valid Alumno alumno,Model model,BindingResult result,SessionStatus status) {
+	public String saveAlumno(@Valid Alumno alumno,BindingResult result ,Model model,SessionStatus status){
 		if(result.hasErrors()) {
 			//Instanciamos objetos		
-			model.addAttribute("title","Nuevo alumno");
+			model.addAttribute("title","Registrar alumno");
 			return "alumno/form";
 		}
 		//Si el alumno no tiene ningun rol
@@ -75,8 +74,6 @@ public class AlumnoController {
 			Usuario usuario= alumno.getUsuario();
 			usuario.setRoles(listRoles);
 			alumno.setUsuario(usuario);
-		}else {
-			
 		}
 		alumnoService.saveOrUpdate(alumno);
 		status.setComplete();
@@ -96,7 +93,7 @@ public class AlumnoController {
 			flash.addFlashAttribute("title", "El alumno no existe");
 			return "redirect:/alumno";
 		}
-		model.addAttribute("title", "Editar marca");
+		model.addAttribute("title", "Editar alumno");
 		model.addAttribute("alumno",alumno);
 		return "alumno/form";
 	}

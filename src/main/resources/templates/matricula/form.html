@@ -230,7 +230,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Alumno</h1>
+						<h1 class="h3 mb-0 text-gray-800">Matricula</h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
@@ -247,7 +247,7 @@
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">Creación de
-										alumno</h6>
+										matricula</h6>
 									<div class="dropdown no-arrow">
 										<a class="dropdown-toggle" href="#" role="button"
 											id="dropdownMenuLink" data-toggle="dropdown"
@@ -267,129 +267,35 @@
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
-									<form th:action="@{/alumno/save}" th:object="${alumno}"
+									<form th:action="@{/matricula/save}" th:object="${matricula}"
 										method="post">
+										
 										<div class="form-group row">
-											<label for="username" class="col-sm-6 col-form-label">Codigo</label>
-											<div class="col-sm-12">
-												<input type="text" th:field="*{usuario.username}"
-													class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('usuario.username')}"
-													th:errors="*{usuario.username}"></small>
-											</div>
-										</div>
+												<label for="marca" class="col-sm-2 col-form-label">Alumno</label>
+												<div class="col-sm-6">
+													<select class="custom-select custom-select-sm"
+														th:field="*{alumno}">
 
-										<div class="form-group row">
-											<label for="password" class="col-sm-6 col-form-label">Contraseña</label>
-											<div class="col-sm-12">
-												<input type="password" th:field="*{usuario.password}"
-													class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('usuario.password')}"
-													th:errors="*{usuario.password}"></small>
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="nombres" class="col-sm-6 col-form-label">Nombres</label>
-											<div class="col-sm-12">
-												<input type="text" th:field="*{nombres}"
-													class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('nombres')}"
-													th:errors="*{nombres}"></small>
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="apellidos" class="col-sm-6 col-form-label">Apellidos</label>
-											<div class="col-sm-12">
-												<input type="text" name="idApellido" th:field="*{apellidos}"
-													class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('apellidos')}"
-													th:errors="*{apellidos}"></small>
-											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="DNI" class="col-sm-6 col-form-label">DNI</label>
-											<div class="col-sm-12">
-												<input type="text" th:field="*{DNI}" class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('DNI')}" th:errors="*{DNI}"></small>
-											</div>
-										</div>
-
-										<!-- 
-										<div class="form-group row">
-											<label for="fechaNacimiento" class="col-sm-6 col-form-label">Fecha de Nacimiento</label>
-											<div class="col-sm-12">
-												<input type="text" th:field="*{fechaNacimiento}" class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></small>
-											</div>
-										</div>
-										-->
-
-										<div class="form-group row">
-											<label for="fechaNacimiento" class="col-sm-6 col-form-label">Fecha
-												de nacimiento</label>
-											<div class="col-sm-12">
-												<div class="input-group text" id="datetimepicker1">
-													<input type="date" th:field="*{fechaNacimiento}"
-														class="form-control"
-														th:errorclass="'form-control alert-danger'" /> <span
-														class="input-group-addon"> <span
-														class="glyphicon glyphicon-calendar"></span>
-													</span>
+														<option th:each="alumno: ${alumnos}"
+															th:value="${alumno.id}" th:utext="${alumno.nombres}+' '+${alumno.apellidos}" />
+													</select>
 												</div>
-												<small class="form-text text-danger"
-													th:if="${#fields.hasErrors('fechaNacimiento')}"
-													th:errors="*{fechaNacimiento}"></small>
 											</div>
-											<script type="text/javascript">
-												$(function() {
-													$('#datetimepicker1')
-															.datetimepicker(
-																	{
-																		format : 'mm/dd/yyyy'
-																	});
-												});
-											</script>
-										</div>
+											
+											<div class="form-group row">
+												<label for="marca" class="col-sm-2 col-form-label">Curso</label>
+												<div class="col-sm-6">
+													<select class="custom-select custom-select-sm"
+														th:field="*{curso}">
 
-
-										<div class="form-group row">
-											<label for="direccion" class="col-sm-6 col-form-label">Direccion</label>
-											<div class="col-sm-12">
-												<input type="text" th:field="*{direccion}"
-													class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('direccion')}"
-													th:errors="*{direccion}"></small>
+														<option th:each="curso: ${cursos}"
+															th:value="${curso.id}" th:utext="${curso.nombre}" />
+													</select>
+												</div>
 											</div>
-										</div>
-
-										<div class="form-group row">
-											<label for="telefono" class="col-sm-6 col-form-label">Telefono</label>
-											<div class="col-sm-12">
-												<input type="text" th:field="*{telefono}"
-													class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('telefono')}"
-													th:errors="*{telefono}"></small>
-											</div>
-										</div>
+										
+									
+										
 										<div class="form-group row">
 											<div class="col-sm-6 mt-4">
 												<input type="submit" th:value="${title}"
