@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,8 +25,8 @@ public class Matricula implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "alumno_id", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "alumno_id")
 	private Alumno alumno;
 	
 	@OneToOne(cascade = CascadeType.ALL)
