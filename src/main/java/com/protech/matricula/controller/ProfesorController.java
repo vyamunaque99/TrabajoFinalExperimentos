@@ -1,7 +1,6 @@
 package com.protech.matricula.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +23,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.protech.matricula.entity.Profesor;
-import com.protech.matricula.entity.Rol;
-import com.protech.matricula.entity.Usuario;
 import com.protech.matricula.service.impl.ProfesorService;
 
 @Controller
@@ -58,11 +55,12 @@ public class ProfesorController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String saveProfesor(@Valid Profesor profesor,BindingResult result,Model model,SessionStatus status) {
+	public String saveProfesor(@Valid Profesor profesor,BindingResult result,Model model,SessionStatus status,RedirectAttributes flashMessage) {
 		if(result.hasErrors()) {
 			model.addAttribute("title", "Registrar profesor");
 			return "profesor/form";
 		}
+		/*
 		//Si el profesor no tiene ningun rol
 		if(profesor.getId()==null) {
 			List<Rol> listRoles = new ArrayList<>();
@@ -73,6 +71,14 @@ public class ProfesorController {
 			usuario.setRoles(listRoles);
 			profesor.setUsuario(usuario);
 		}
+		*/
+		String mensaje;
+		if(profesor.getId()!=null) {
+			mensaje="Profesor editado exitosamente";
+		}else {
+			mensaje="Profesor registrado exitosamente";
+		}
+		flashMessage.addFlashAttribute("message", mensaje);
 		profesorService.saveOrUpdate(profesor);
 		status.setComplete();
 		return "redirect:/profesor";
@@ -97,8 +103,9 @@ public class ProfesorController {
 	}
 	
 	@GetMapping(value = "/delete/{id}")
-	public String deleteProfesor(@PathVariable(value = "id") Long id) {
+	public String deleteProfesor(@PathVariable(value = "id") Long id,RedirectAttributes flashMessage) {
 		profesorService.deleteById(id);
+		flashMessage.addFlashAttribute("message", "Se ha eliminado al profesor exitosamente");
 		return "redirect:/profesor";
 	}
 }

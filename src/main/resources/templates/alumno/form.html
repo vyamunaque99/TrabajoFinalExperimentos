@@ -270,28 +270,17 @@
 									<form th:action="@{/alumno/save}" th:object="${alumno}"
 										method="post">
 										<div class="form-group row">
-											<label for="username" class="col-sm-6 col-form-label">Codigo</label>
+											<label for="codigo" class="col-sm-6 col-form-label">Codigo</label>
 											<div class="col-sm-12">
-												<input type="text" th:field="*{usuario.username}"
+												<input type="text" th:field="*{codigo}"
 													class="form-control"
 													th:errorclass="'form-control alert-danger'" /> <small
 													class="form-text text-danger"
-													th:if="${#fields.hasErrors('usuario.username')}"
-													th:errors="*{usuario.username}"></small>
+													th:if="${#fields.hasErrors('codigo')}"
+													th:errors="*{codigo}"></small>
 											</div>
 										</div>
-
-										<div class="form-group row">
-											<label for="password" class="col-sm-6 col-form-label">Contraseña</label>
-											<div class="col-sm-12">
-												<input type="password" th:field="*{usuario.password}"
-													class="form-control"
-													th:errorclass="'form-control alert-danger'" /> <small
-													class="form-text text-danger"
-													th:if="${#fields.hasErrors('usuario.password')}"
-													th:errors="*{usuario.password}"></small>
-											</div>
-										</div>
+								
 
 										<div class="form-group row">
 											<label for="nombres" class="col-sm-6 col-form-label">Nombres</label>

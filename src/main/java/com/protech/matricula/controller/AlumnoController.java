@@ -1,7 +1,6 @@
 package com.protech.matricula.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +23,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.protech.matricula.entity.Alumno;
-import com.protech.matricula.entity.Rol;
-import com.protech.matricula.entity.Usuario;
 import com.protech.matricula.service.impl.AlumnoService;
 
 @Controller
@@ -58,12 +55,13 @@ public class AlumnoController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String saveAlumno(@Valid Alumno alumno,BindingResult result ,Model model,SessionStatus status){
+	public String saveAlumno(@Valid Alumno alumno,BindingResult result ,Model model,SessionStatus status,RedirectAttributes flashMessage){
 		if(result.hasErrors()) {
 			//Instanciamos objetos		
 			model.addAttribute("title","Registrar alumno");
 			return "alumno/form";
 		}
+		/*
 		//Si el alumno no tiene ningun rol
 		System.out.println(alumno.getTelefono());
 		if(alumno.getId() ==null) {
@@ -75,6 +73,14 @@ public class AlumnoController {
 			usuario.setRoles(listRoles);
 			alumno.setUsuario(usuario);
 		}
+		*/
+		String mensaje;
+		if(alumno.getId()!=null) {
+			mensaje="Alumno editado exitosamente";
+		}else {
+			mensaje="Alumno registrado exitosamente";
+		}
+		flashMessage.addFlashAttribute("message", mensaje);
 		alumnoService.saveOrUpdate(alumno);
 		status.setComplete();
 		return "redirect:/alumno";
@@ -99,8 +105,9 @@ public class AlumnoController {
 	}
 	
 	@GetMapping(value = "/delete/{id}")
-	public String deleteAlumno(@PathVariable(value = "id") Long id) {
+	public String deleteAlumno(@PathVariable(value = "id") Long id,RedirectAttributes flashMessage) {
 		alumnoService.deleteById(id);
+		flashMessage.addFlashAttribute("message", "Se ha eliminado al alumno exitosamente");
 		return "redirect:/alumno";
 	}
 

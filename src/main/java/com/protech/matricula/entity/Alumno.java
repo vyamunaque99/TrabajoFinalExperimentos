@@ -3,19 +3,18 @@ package com.protech.matricula.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +31,10 @@ public class Alumno implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty(message="Debe ingresar codigo")
+	@Column(name="codigo", nullable = false , length=30)
+	private String codigo;
+	
 	@NotEmpty(message="Debe ingresar nombre")
 	@Column(name="nombres", nullable = false , length=30)
 	private String nombres;
@@ -41,7 +44,8 @@ public class Alumno implements Serializable {
 	private String apellidos;
 
 	@NotEmpty(message ="Debe ingresar DNI")
-	@Column(length = 8,unique = true)
+	@Size(min=8,max = 8)
+	@Column(unique = true)
 	private String DNI;
 
 	@NotNull(message = "Debe ingresar una Fecha")
@@ -54,12 +58,14 @@ public class Alumno implements Serializable {
 	private String direccion;
 
 	@NotEmpty(message="Debe ingresar Telefono")
-	@Column(name="telefono",nullable=false,length = 9)
+	@Column(name="telefono",nullable=false,length = 9,unique = true)
 	private String telefono;
 
+	/*
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
+	*/
 	
 	@OneToOne(mappedBy = "alumno")
 	private Matricula matricula;
@@ -120,6 +126,15 @@ public class Alumno implements Serializable {
 		this.telefono = telefono;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	
+	/*
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -127,5 +142,6 @@ public class Alumno implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	*/
 
 }

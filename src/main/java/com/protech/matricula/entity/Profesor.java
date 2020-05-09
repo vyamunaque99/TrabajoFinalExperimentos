@@ -4,16 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,6 +31,10 @@ public class Profesor implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotEmpty(message="Debe ingresar codigo")
+	@Column(name="codigo", nullable = false , length=30)
+	private String codigo;
 	
 	@NotEmpty(message="Debe ingresar nombre")
 	@Column(name="nombres", nullable = false , length=30)
@@ -60,9 +61,11 @@ public class Profesor implements Serializable{
 	@Column(name="telefono",nullable=false,length = 9)
 	private String telefono;
 	
+	/*
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
+	*/
 	
 	@OneToMany(mappedBy ="profesor" ,fetch = FetchType.LAZY)
 	private List<Curso>cursos;
@@ -123,6 +126,7 @@ public class Profesor implements Serializable{
 		this.telefono = telefono;
 	}
 
+	/*
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -130,6 +134,7 @@ public class Profesor implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	*/
 
 	public List<Curso> getCursos() {
 		return cursos;
@@ -137,6 +142,14 @@ public class Profesor implements Serializable{
 
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }

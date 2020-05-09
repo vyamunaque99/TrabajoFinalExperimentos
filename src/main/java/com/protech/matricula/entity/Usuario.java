@@ -53,12 +53,13 @@ public class Usuario implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastTimeLocked;
 	
+	/*
 	@OneToOne(mappedBy = "usuario")
 	private Profesor profesor;
 	
 	@OneToOne(mappedBy = "usuario")
 	private Alumno alumno;
-	
+	*/
 	
 	
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

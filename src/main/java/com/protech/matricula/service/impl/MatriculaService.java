@@ -49,5 +49,25 @@ public class MatriculaService implements IMatriculaService {
 			return true;
 		}
 	}
+	
+	public boolean isAlumnoMatriculado(Long idCurso,Long idAlumno) {
+		if(matriculaRepository.existeAlumno(idCurso, idAlumno)==1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public List<Matricula>listarPorAlumno(String codAlumno){
+		return matriculaRepository.listarPorAlumno(codAlumno);
+	}
+	
+	public List<Matricula>listarPorProfesor(String codProfesor){
+		return matriculaRepository.listarPorProfesor(codProfesor);
+	}
+	
+	public List<Matricula>listarPorCurso(String codCurso){
+		return matriculaRepository.listarPorCurso(codCurso);
+	}
 
 }
