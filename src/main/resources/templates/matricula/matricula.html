@@ -292,6 +292,8 @@
 
 						<!-- Area Chart -->
 						<div class="col-xl-12 col-lg-7">
+						<div th:if="${message}" class="alert alert-success" role="alert" th:text="${message}">
+						</div>
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div
@@ -324,7 +326,7 @@
 												<th scope="col">Curso</th>
 												<th scope="col">Profesor</th>
 												<th scope="col">Codigo del curso</th>
-												<!--  <th scope="col">Eliminar</th>-->
+												<th scope="col">Retirar matricula</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -336,9 +338,9 @@
 												<td
 													th:text="${matricula.curso.profesor.nombres}+' '+${matricula.curso.profesor.apellidos}"></td>
 												<td th:text="${matricula.curso.codigo}"></td>
-												<!--  <td><a href="#"
+												<td><a href="#"
 													class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"
-													th:href="@{'/curso/delete/'+${curso.id}}">Eliminar curso</a></td>-->
+													th:href="@{'/matricula/delete/'+${matricula.id}}">Retirar matricula</a></td>
 											</tr>
 										</tbody>
 									</table>

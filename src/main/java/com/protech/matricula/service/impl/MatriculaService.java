@@ -37,7 +37,7 @@ public class MatriculaService implements IMatriculaService {
 		return matriculaRepository.findById(id);
 	}
 	
-	void deleteMatricula(Long id) {
+	public void deleteMatricula(Long id) {
 		matriculaRepository.deleteById(id);
 	}
 	

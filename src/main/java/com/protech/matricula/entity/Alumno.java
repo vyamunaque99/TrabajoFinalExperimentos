@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +34,8 @@ public class Alumno implements Serializable {
 	private Long id;
 	
 	@NotEmpty(message="Debe ingresar codigo")
-	@Column(name="codigo", nullable = false , length=30)
+	@Size(min=10,max = 10)
+	@Column(name="codigo", nullable = false )
 	private String codigo;
 	
 	@NotEmpty(message="Debe ingresar nombre")
