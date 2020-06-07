@@ -50,12 +50,13 @@ public class CursoController {
 	}
 	
 	@PostMapping(value = "/save")
-	public String saveCurso(@Valid Curso curso,BindingResult result,Model model,SessionStatus status) {
+	public String saveCurso(@Valid Curso curso,BindingResult result,Model model,SessionStatus status,RedirectAttributes flashMessage) {
 		if(result.hasErrors()) {
 			model.addAttribute("title", "Registrar Curso");
 			return "curso/form";
 		}
 		cursoService.saveOrUpdate(curso);
+		flashMessage.addFlashAttribute("message", "Curso registrado exitosamente");
 		status.setComplete();
 		return "redirect:/curso";
 	}
@@ -80,8 +81,9 @@ public class CursoController {
 	}
 	
 	@GetMapping(value = "/delete/{id}")
-	public String deleteCurso(@PathVariable(value = "id") Long id) {
+	public String deleteCurso(@PathVariable(value = "id") Long id,RedirectAttributes flashMessage) {
 		cursoService.deleteById(id);
+		flashMessage.addFlashAttribute("message", "Curso eliminado exitosamente");
 		return "redirect:/curso";
 	}
 	
