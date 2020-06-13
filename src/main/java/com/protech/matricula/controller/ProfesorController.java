@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,35 @@ public class ProfesorController {
 	public String saveProfesor(@Valid Profesor profesor,BindingResult result,Model model,SessionStatus status,RedirectAttributes flashMessage) {
 		if(result.hasErrors()) {
 			model.addAttribute("title", "Registrar profesor");
+			return "profesor/form";
+		}
+		if(profesorService.existeProfesorByCodigo(profesor.getCodigo()) && profesor.getId()==null) {
+			model.addAttribute("message","El codigo de profesor ya existe");
+			model.addAttribute("title", "Registrar profesor");
+			return "profesor/form";
+		}else if(profesor.getCodigo().length()!=10 || !StringUtils.isNumeric(profesor.getCodigo())) {
+			model.addAttribute("message","El codigo de profesor es invalido");
+			model.addAttribute("title", "Registrar profesor");
+			return "profesor/form";
+		}else if(profesor.getNombres().length()>30 || !StringUtils.isAlphaSpace(profesor.getNombres())) {
+			model.addAttribute("message","Los nombres del profesor son inválidos");
+			model.addAttribute("title", "Registrar profesor");
+			return "profesor/form";
+		}else if(profesor.getApellidos().length()>30 || !StringUtils.isAlphaSpace(profesor.getApellidos())) {
+			model.addAttribute("message","Los apellidos del profesor son inválidos");
+			model.addAttribute("title","Registrar profesor");
+			return "profesor/form";
+		}else if(profesor.getDNI().length()!=8 || !StringUtils.isNumeric(profesor.getDNI())) {
+			model.addAttribute("message","El DNI del profesor no es válido");
+			model.addAttribute("title","Registrar profesor");
+			return "profesor/form";
+		}else if(profesor.getTelefono().length()!=9 || !StringUtils.isNumeric(profesor.getTelefono())) {
+			model.addAttribute("message","El número de teléfono celular del profesor no es válido");
+			model.addAttribute("title","Registrar profesor");
+			return "profesor/form";
+		}else if(profesor.getDireccion().length()>80 || StringUtils.containsAny(profesor.getDireccion(), "\b!#$%&/()='¡¿?´¨+*{}[];:_°|")) {
+			model.addAttribute("message","La dirección del profesor no es válido");
+			model.addAttribute("title","Registrar profesor");
 			return "profesor/form";
 		}
 		/*

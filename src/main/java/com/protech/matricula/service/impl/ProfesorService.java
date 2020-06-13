@@ -40,5 +40,21 @@ public class ProfesorService implements IProfesorService{
 	public void deleteById(Long id) {
 		profesorRepository.deleteById(id);
 	}
+	
+	public boolean existeProfesorByCodigo(String codigo) {
+		if(profesorRepository.existeProfesorbyCodigo(codigo)==1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean existeAlumnoByDNI(String dni) {
+		if(profesorRepository.existeProfesorbyDNI(dni)==1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 }

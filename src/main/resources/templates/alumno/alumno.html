@@ -242,6 +242,8 @@
 
 						<!-- Area Chart -->
 						<div class="col-xl-12 col-lg-7">
+						<div th:if="${messageError}" class="alert alert-danger" role="alert" th:text="${messageError}">
+						</div>
 						<div th:if="${message}" class="alert alert-success" role="alert" th:text="${message}">
 						</div>
 							<div class="card shadow mb-4">
@@ -277,7 +279,6 @@
 												<th scope="col">DNI</th>
 												<th scope="col">Fecha de nacimiento</th>
 												<th scope="col">Dirección</th>
-												<th scope="col">Telefono</th>
 												<th scope="col">Editar</th>
 												<th scope="col">Eliminar</th>
 											</tr>
@@ -290,7 +291,6 @@
 												<td th:text="${alumno.DNI}"></td>
 												<td th:text="${alumno.fechaNacimiento}"></td>
 												<td th:text="${alumno.direccion}"></td>
-												<td th:text="${alumno.telefono}"></td>
 												<td><a href="#"
 													class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
 													th:href="@{'/alumno/edit/'+${alumno.id}}">Editar alumno</a></td>

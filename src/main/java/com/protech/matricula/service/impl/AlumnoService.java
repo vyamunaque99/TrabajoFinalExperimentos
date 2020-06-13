@@ -39,5 +39,29 @@ public class AlumnoService implements IAlumnoService {
 	public void deleteById(Long id) {
 		alumnoRepository.deleteById(id);;
 	}
+	
+	public boolean existeAlumnoByCodigo(String codigo) {
+		if(alumnoRepository.existeAlumnobyCodigo(codigo)==1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean existeAlumnoByDNI(String dni) {
+		if(alumnoRepository.existeAlumnobyDNI(dni)==1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean alumnoMatriculado(String codigo) {
+		if(alumnoRepository.numCursosMatriculados(codigo)>=1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.protech.matricula.entity.Alumno;
 import com.protech.matricula.service.impl.AlumnoService;
+
 
 @Controller
 @RequestMapping("/alumno")
@@ -58,6 +60,31 @@ public class AlumnoController {
 	public String saveAlumno(@Valid Alumno alumno,BindingResult result ,Model model,SessionStatus status,RedirectAttributes flashMessage){
 		if(result.hasErrors()) {
 			//Instanciamos objetos		
+			model.addAttribute("title","Registrar alumno");
+			return "alumno/form";
+		}	
+		if(alumnoService.existeAlumnoByCodigo(alumno.getCodigo()) && alumno.getId()==null) {
+			model.addAttribute("message","El codigo de alumno ya existe");
+			model.addAttribute("title","Registrar alumno");
+			return "alumno/form";		
+		}else if(alumno.getCodigo().length()!=10 || !StringUtils.isNumeric(alumno.getCodigo())) {
+			model.addAttribute("message","El codigo de alumno es invalido");
+			model.addAttribute("title","Registrar alumno");
+			return "alumno/form";		
+		}else if(alumno.getNombres().length()>30 || !StringUtils.isAlphaSpace(alumno.getNombres())) {
+			model.addAttribute("message","Los nombres del alumno son inválidos");
+			model.addAttribute("title","Registrar alumno");
+			return "alumno/form";
+		}else if(alumno.getApellidos().length()>30 || !StringUtils.isAlphaSpace(alumno.getApellidos())) {
+			model.addAttribute("message","Los apellidos del alumno son inválidos");
+			model.addAttribute("title","Registrar alumno");
+			return "alumno/form";
+		}else if(alumno.getDNI().length()!=8 || !StringUtils.isNumeric(alumno.getDNI())) {
+			model.addAttribute("message","El DNI del alumno no es válido");
+			model.addAttribute("title","Registrar alumno");
+			return "alumno/form";
+		}else if(alumno.getDireccion().length()>80 || StringUtils.containsAny(alumno.getDireccion(), "\b!#$%&/()='¡¿?´¨+*{}[];:_°|")) {
+			model.addAttribute("message","La dirección del alumno no es válido");
 			model.addAttribute("title","Registrar alumno");
 			return "alumno/form";
 		}
@@ -106,6 +133,14 @@ public class AlumnoController {
 	
 	@GetMapping(value = "/delete/{id}")
 	public String deleteAlumno(@PathVariable(value = "id") Long id,RedirectAttributes flashMessage) {
+		Optional<Alumno> alumno;
+		alumno=alumnoService.findById(id);
+		if(!alumno.isPresent()) {
+			return "redirect:/alumno";
+		}else if(alumnoService.alumnoMatriculado(alumno.get().getCodigo())) {
+			flashMessage.addFlashAttribute("messageError", "El alumno está matriculado en un curso y no puede eliminarse");
+			return "redirect:/alumno";
+		}
 		alumnoService.deleteById(id);
 		flashMessage.addFlashAttribute("message", "Se ha eliminado al alumno exitosamente");
 		return "redirect:/alumno";

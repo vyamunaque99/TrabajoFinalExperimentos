@@ -16,7 +16,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,10 +34,10 @@ public class Profesor implements Serializable{
 	
 	@NotEmpty(message="Debe ingresar codigo")
 	@Column(name="codigo", nullable = false)
-	@Size(min=10,max = 10)
+	//@Size(min=10,max = 10)
 	private String codigo;
 	
-	@NotEmpty(message="Debe ingresar nombre")
+	@NotEmpty(message="Debe ingresar nombres")
 	@Column(name="nombres", nullable = false , length=30)
 	private String nombres;
 

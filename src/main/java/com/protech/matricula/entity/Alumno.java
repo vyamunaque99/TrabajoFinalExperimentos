@@ -16,7 +16,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -34,11 +33,11 @@ public class Alumno implements Serializable {
 	private Long id;
 	
 	@NotEmpty(message="Debe ingresar codigo")
-	@Size(min=10,max = 10)
+	//@Size(min=10,max = 10)
 	@Column(name="codigo", nullable = false )
 	private String codigo;
 	
-	@NotEmpty(message="Debe ingresar nombre")
+	@NotEmpty(message="Debe ingresar nombres")
 	@Column(name="nombres", nullable = false , length=30)
 	private String nombres;
 
@@ -47,7 +46,7 @@ public class Alumno implements Serializable {
 	private String apellidos;
 
 	@NotEmpty(message ="Debe ingresar DNI")
-	@Size(min=8,max = 8)
+	//@Size(min=8,max = 8)
 	@Column(unique = true)
 	private String DNI;
 
@@ -57,13 +56,9 @@ public class Alumno implements Serializable {
 	private Date fechaNacimiento;
 
 	@NotEmpty(message="Debe ingresar Direccion")
-	@Column(name="direccion", nullable=false,length = 100)
+	@Column(name="direccion", nullable=false,length = 80)
 	private String direccion;
-
-	@NotEmpty(message="Debe ingresar Telefono")
-	@Column(name="telefono",nullable=false,length = 9,unique = true)
-	private String telefono;
-
+	
 	/*
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
@@ -119,14 +114,6 @@ public class Alumno implements Serializable {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
 	}
 
 	public String getCodigo() {
