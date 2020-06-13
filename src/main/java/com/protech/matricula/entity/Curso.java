@@ -38,7 +38,7 @@ public class Curso implements Serializable{
 	@Column(name="descripcion", nullable = false , length=100)
 	private String descripcion;
 
-	@NotEmpty(message="No existen profesores registrados, Por favor registre uno antes de procede")
+	//@NotEmpty(message="No existen profesores registrados, Por favor registre uno antes de procede")
 	@ManyToOne
 	@JoinColumn(name = "profesor_id")
 	private Profesor profesor;
