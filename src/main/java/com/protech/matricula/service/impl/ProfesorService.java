@@ -56,5 +56,13 @@ public class ProfesorService implements IProfesorService{
 			return false;
 		}
 	}
+	
+	public boolean profesorInscrito(String codigo) {
+		if(profesorRepository.numCursosInscritos(codigo)>=1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 }

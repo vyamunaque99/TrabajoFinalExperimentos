@@ -134,6 +134,14 @@ public class ProfesorController {
 	
 	@GetMapping(value = "/delete/{id}")
 	public String deleteProfesor(@PathVariable(value = "id") Long id,RedirectAttributes flashMessage) {
+		Optional<Profesor> profesor;
+		profesor=profesorService.findById(id);
+		if(!profesor.isPresent()) {
+			return "redirect:/profesor";
+		}else if(profesorService.profesorInscrito(profesor.get().getCodigo())) {
+			flashMessage.addFlashAttribute("messageError", "El profesor está afiliado a un curso y no puede eliminarse");
+			return "redirect:/profesor";
+		}
 		profesorService.deleteById(id);
 		flashMessage.addFlashAttribute("message", "Se ha eliminado al profesor exitosamente");
 		return "redirect:/profesor";

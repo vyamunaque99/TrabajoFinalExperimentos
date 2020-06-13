@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,6 +56,27 @@ public class CursoController {
 			model.addAttribute("title", "Registrar Curso");
 			return "curso/form";
 		}
+		if(cursoService.existeCursoByCodigo(curso.getCodigo()) && curso.getId()==null) {
+			model.addAttribute("message", "El código de curso ya existe");
+			model.addAttribute("profesores", loadProfesores());
+			model.addAttribute("title", "Registrar Curso");
+			return "curso/form";
+		}else if(curso.getCodigo().length()!=4 || !StringUtils.isNumeric(curso.getCodigo())) {
+			model.addAttribute("message", "El código de curso es incorrecto");
+			model.addAttribute("profesores", loadProfesores());
+			model.addAttribute("title", "Registrar Curso");
+			return "curso/form";
+		}else if(curso.getNombre().length()>50 || !StringUtils.isAlphaSpace(curso.getNombre())) {
+			model.addAttribute("message", "El nombre de curso es incorrecto");
+			model.addAttribute("profesores", loadProfesores());
+			model.addAttribute("title", "Registrar Curso");
+			return "curso/form";
+		}else if(curso.getDescripcion().length()>100 || StringUtils.containsAny(curso.getDescripcion(), "\b!#$%&/()='¡¿?´¨+*{}[];:_°|")) {
+			model.addAttribute("message", "La descripción de curso es incorrecto");
+			model.addAttribute("profesores", loadProfesores());
+			model.addAttribute("title", "Registrar Curso");
+			return "curso/form";
+		}
 		cursoService.saveOrUpdate(curso);
 		flashMessage.addFlashAttribute("message", "Curso registrado exitosamente");
 		status.setComplete();
@@ -82,6 +104,14 @@ public class CursoController {
 	
 	@GetMapping(value = "/delete/{id}")
 	public String deleteCurso(@PathVariable(value = "id") Long id,RedirectAttributes flashMessage) {
+		Optional<Curso> curso;
+		curso=cursoService.findById(id);
+		if(!curso.isPresent()) {
+			return "redirect:/curso";
+		}else if(cursoService.existeAlumnos(id)) {
+			flashMessage.addFlashAttribute("messageError", "El curso no puede eliminarse, ya que hay alumnos matriculados en el mismo");
+			return "redirect:/curso";
+		}
 		cursoService.deleteById(id);
 		flashMessage.addFlashAttribute("message", "Curso eliminado exitosamente");
 		return "redirect:/curso";

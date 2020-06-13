@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="cursos")
@@ -28,7 +27,7 @@ public class Curso implements Serializable{
 	
 	@NotEmpty(message="Debe ingresar un codigo")
 	@Column(name="codigo", nullable = false , length=4)
-	@Size(min=4,max = 4)
+	//@Size(min=4,max = 4)
 	private String codigo;
 	
 	@NotEmpty(message="Debe ingresar un nombre de curso")
@@ -39,6 +38,7 @@ public class Curso implements Serializable{
 	@Column(name="descripcion", nullable = false , length=100)
 	private String descripcion;
 
+	@NotEmpty(message="No existen profesores registrados, Por favor registre uno antes de procede")
 	@ManyToOne
 	@JoinColumn(name = "profesor_id")
 	private Profesor profesor;

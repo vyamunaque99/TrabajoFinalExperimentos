@@ -242,6 +242,8 @@
 
 						<!-- Area Chart -->
 						<div class="col-xl-12 col-lg-7">
+						<div th:if="${messageError}" class="alert alert-danger" role="alert" th:text="${messageError}">
+						</div>
 						<div th:if="${message}" class="alert alert-success" role="alert" th:text="${message}">
 						</div>
 							<div class="card shadow mb-4">
