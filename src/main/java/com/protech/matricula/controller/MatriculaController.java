@@ -67,7 +67,7 @@ public class MatriculaController {
 			model.addAttribute("alumnos", loadAlumnos());
 			model.addAttribute("cursos", loadCursos());	
 			model.addAttribute("title","Matricularme en este curso");
-			model.addAttribute("errorMessage","El alumno ya está matriculado en el curso");
+			model.addAttribute("errorMessage","El alumno ya está matriculado en ese curso");
 			return "matricula/form";
 		}		
 		matriculaService.saveOrUpdate(matricula);

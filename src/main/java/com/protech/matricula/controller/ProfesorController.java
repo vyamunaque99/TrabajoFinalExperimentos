@@ -57,6 +57,7 @@ public class ProfesorController {
 	
 	@PostMapping(value = "/save")
 	public String saveProfesor(@Valid Profesor profesor,BindingResult result,Model model,SessionStatus status,RedirectAttributes flashMessage) {
+		Date today = new Date();
 		if(result.hasErrors()) {
 			model.addAttribute("title", "Registrar profesor");
 			return "profesor/form";
@@ -81,6 +82,10 @@ public class ProfesorController {
 			model.addAttribute("message","El DNI del profesor no es válido");
 			model.addAttribute("title","Registrar profesor");
 			return "profesor/form";
+		}else if(today.before(profesor.getFechaIngreso())) {
+			model.addAttribute("message","La fecha de nacimiento del alumno no es válida");
+			model.addAttribute("title","Registrar alumno");
+			return "alumno/form";
 		}else if(profesor.getTelefono().length()!=9 || !StringUtils.isNumeric(profesor.getTelefono())) {
 			model.addAttribute("message","El número de teléfono celular del profesor no es válido");
 			model.addAttribute("title","Registrar profesor");

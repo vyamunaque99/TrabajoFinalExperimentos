@@ -32,7 +32,7 @@ public class Alumno implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message="Debe ingresar codigo")
+	@NotEmpty(message="Debe ingresar codigo. El tamaño tiene que ser 10 caracteres	")
 	//@Size(min=10,max = 10)
 	@Column(name="codigo", nullable = false )
 	private String codigo;

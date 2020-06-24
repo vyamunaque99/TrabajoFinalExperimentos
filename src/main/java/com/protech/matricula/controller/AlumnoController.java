@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import javax.validation.Valid;
 
@@ -58,6 +59,7 @@ public class AlumnoController {
 	
 	@PostMapping(value = "/save")
 	public String saveAlumno(@Valid Alumno alumno,BindingResult result ,Model model,SessionStatus status,RedirectAttributes flashMessage){
+		Date today = new Date();
 		if(result.hasErrors()) {
 			//Instanciamos objetos		
 			model.addAttribute("title","Registrar alumno");
@@ -83,7 +85,12 @@ public class AlumnoController {
 			model.addAttribute("message","El DNI del alumno no es válido");
 			model.addAttribute("title","Registrar alumno");
 			return "alumno/form";
-		}else if(alumno.getDireccion().length()>80 || StringUtils.containsAny(alumno.getDireccion(), "\b!#$%&/()='¡¿?´¨+*{}[];:_°|")) {
+		}else if(today.before(alumno.getFechaNacimiento()) || TimeUnit.DAYS.convert(today.getTime()-alumno.getFechaNacimiento().getTime(),TimeUnit.MILLISECONDS)<18*365) {
+			//System.out.println(TimeUnit.DAYS.convert(today.getTime()-alumno.getFechaNacimiento().getTime(),TimeUnit.MILLISECONDS));
+			model.addAttribute("message","La fecha de nacimiento del alumno no es válida");
+			model.addAttribute("title","Registrar alumno");
+			return "alumno/form";
+		} else if(alumno.getDireccion().length()>80 || StringUtils.containsAny(alumno.getDireccion(), "\b!#$%&/()='¡¿?´¨+*{}[];:_°|")) {
 			model.addAttribute("message","La dirección del alumno no es válido");
 			model.addAttribute("title","Registrar alumno");
 			return "alumno/form";
