@@ -49,7 +49,7 @@ public class CursoService implements ICursoService{
 		if(cursoRepository.existeCursobyCodigo(codigo)==1) {
 			return true;
 		}else {
-			return true;
+			return false;
 		}
 	}
 	

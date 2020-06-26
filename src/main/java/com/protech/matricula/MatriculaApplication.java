@@ -21,7 +21,7 @@ public class MatriculaApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception{
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println(encoder.encode("admin"));
+		System.out.println(encoder.encode("admin1"));
 	}
 
 }
